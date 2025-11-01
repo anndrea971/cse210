@@ -8,8 +8,8 @@ public class GuessMyNumber
         
         Random randomGenerator = new Random();
 
-        Console.WriteLine("Welcome to Guess My Number!");
-        Console.WriteLine("I will pick a number between 1 and 100, and you try to guess it.");
+        Console.WriteLine("What is the magic number?");
+        Console.WriteLine("Pick a number between 1 and 100, try to guess.");
 
         do
         {
