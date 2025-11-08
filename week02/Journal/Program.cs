@@ -3,18 +3,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-// Main application class for the Journal Program.
+
 public class Program
 {
     // === EXCESS REQUIREMENTS/CREATIVITY ===
-    // 1. Used a more complex, less likely-to-be-used separator (~~~).
-    // 2. Added error handling (try-catch blocks) in the Journal class for file operations 
-    //    to gracefully handle exceptions like FileNotFoundException.
-    // 3. Implemented a better check in the LoadFromFile method to handle responses 
-    //    that might unintentionally contain the '~~~' separator (though simplified).
-    // ======================================
 
-    // Member variables for abstraction
     private Journal _journal = new Journal();
     private List<string> _prompts = new List<string>
     {
@@ -38,7 +31,7 @@ public class Program
     private void RunMenu()
     {
         string choice = "";
-        
+
         while (choice != "5")
         {
             Console.WriteLine("\nPlease select one of the following choices:");
@@ -78,28 +71,26 @@ public class Program
         }
     }
 
-    // Gets a random prompt and the user's response, then creates an entry
+
     private void DoNewEntry()
     {
-        // 1. Get a random prompt
+
         string prompt = GetRandomPrompt();
-        
-        // 2. Get the current date as a string
+
         string date = DateTime.Now.ToShortDateString();
-        
-        // 3. Display the prompt and get user response
+
         Console.WriteLine($"\n{prompt}");
         Console.Write("> ");
         string response = Console.ReadLine() ?? "";
 
-        // 4. Create a new Entry object and add it to the Journal
+
         Entry newEntry = new Entry(date, prompt, response);
         _journal.AddEntry(newEntry);
-        
+
         Console.WriteLine("Entry saved successfully.");
     }
 
-    // Selects a random prompt from the list
+
     private string GetRandomPrompt()
     {
         Random random = new Random();
