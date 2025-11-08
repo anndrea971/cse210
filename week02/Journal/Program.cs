@@ -48,7 +48,7 @@ public class Program
             Console.WriteLine("4. Save the journal to a file");
             Console.WriteLine("5. Quit");
             Console.Write("What would you like to do? ");
-            choice = Console.ReadLine();
+            choice = Console.ReadLine() ?? "";
 
             switch (choice)
             {
@@ -60,12 +60,12 @@ public class Program
                     break;
                 case "3":
                     Console.Write("Enter the filename to load from (e.g., myjournal.txt): ");
-                    string loadFile = Console.ReadLine();
+                    string loadFile = Console.ReadLine() ?? "";
                     _journal.LoadFromFile(loadFile);
                     break;
                 case "4":
                     Console.Write("Enter the filename to save to (e.g., myjournal.txt): ");
-                    string saveFile = Console.ReadLine();
+                    string saveFile = Console.ReadLine() ?? "";
                     _journal.SaveToFile(saveFile);
                     break;
                 case "5":
@@ -90,7 +90,7 @@ public class Program
         // 3. Display the prompt and get user response
         Console.WriteLine($"\n{prompt}");
         Console.Write("> ");
-        string response = Console.ReadLine();
+        string response = Console.ReadLine() ?? "";
 
         // 4. Create a new Entry object and add it to the Journal
         Entry newEntry = new Entry(date, prompt, response);
