@@ -8,24 +8,24 @@ public class Journal
     private List<Entry> _entries = new List<Entry>();
     private const string Separator = "~~~"; 
 
-    // ESTOS MÉTODOS DEBEN SER PÚBLICOS
-    public void AddEntry(Entry newEntry) // <-- Debe ser public
+    
+    public void AddEntry(Entry newEntry) 
     {
         _entries.Add(newEntry);
     }
 
-    public void DisplayAll() // <-- Debe ser public y con D mayúscula
+    public void DisplayAll() 
     {
-        // ... Lógica para mostrar las entradas
+        
     }
 
-    public void SaveToFile(string filename) // <-- Debe ser public y con S mayúscula
+    public void SaveToFile(string filename) 
     {
-        // ... Lógica para guardar
+    
     }
 
-    public void LoadFromFile(string filename) // <-- Debe ser public y con L mayúscula
+    public void LoadFromFile(string filename) 
     {
-        // ... Lógica para cargar
+        
     }
 }
