@@ -1,3 +1,8 @@
+// Exceeding Requirements
+// 1. Used a separator ("~~~") for saving/loading to minimize conflicts with user text content
+// 2. Implemented comprehensive `try-catch` blocks in Journal.cs 
+// 3. Increased Prompts: Added two additional, custom prompts to the list
+
 using System;
 using System.Collections.Generic;
 using System.IO;
