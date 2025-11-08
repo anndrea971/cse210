@@ -6,7 +6,7 @@ using System.Linq;
 
 public class Program
 {
-    // === EXCESS REQUIREMENTS/CREATIVITY ===
+
 
     private Journal _journal = new Journal();
     private List<string> _prompts = new List<string>
@@ -16,18 +16,18 @@ public class Program
         "How did I see the hand of the Lord in my life today?",
         "What was the strongest emotion I felt today?",
         "If I had one thing I could do over today, what would it be?",
-        "Describe a moment where you felt grateful today.", // Added custom prompt
-        "What is one small, good thing you did for someone else today?" // Added custom prompt
+        "Describe a moment where you felt grateful today.",
+        "What is one small, good thing you did for someone else today?"
     };
 
-    // Main entry point
+
     public static void Main(string[] args)
     {
         Program program = new Program();
         program.RunMenu();
     }
 
-    // Displays the menu and processes user input
+    
     private void RunMenu()
     {
         string choice = "";
