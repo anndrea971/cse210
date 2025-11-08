@@ -1,97 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+<Project Sdk="Microsoft.NET.Sdk">
 
-// Manages the collection of journal entries and handles file operations.
-public class Journal
-{
-    // Member variable for abstraction
-    private List<Entry> _entries = new List<Entry>();
-    private const string Separator = "~~~"; // Define the separator once
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
 
-    // Adds a new entry to the journal
-    public void AddEntry(Entry newEntry)
-    {
-        _entries.Add(newEntry);
-    }
-
-    // Displays all entries in the journal
-    public void DisplayAll()
-    {
-        if (_entries.Any())
-        {
-            Console.WriteLine("\n*** Journal Entries ***");
-            foreach (Entry entry in _entries)
-            {
-                entry.Display();
-            }
-            Console.WriteLine("*** End of Journal ***");
-        }
-        else
-        {
-            Console.WriteLine("\nThe journal is currently empty.");
-        }
-    }
-
-    // Saves the current journal entries to a file
-    public void SaveToFile(string filename)
-    {
-        try
-        {
-            using (StreamWriter outputFile = new StreamWriter(filename))
-            {
-                foreach (Entry entry in _entries)
-                {
-                    outputFile.WriteLine(entry.ToSaveString());
-                }
-            }
-            Console.WriteLine($"\nJournal successfully saved to '{filename}'.");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"\nError saving file: {ex.Message}");
-        }
-    }
-
-    // Loads journal entries from a file, replacing current entries
-    public void LoadFromFile(string filename)
-    {
-        try
-        {
-            // Read all lines from the file
-            string[] lines = System.IO.File.ReadAllLines(filename);
-
-            // Clear the current entries before loading new ones
-            _entries.Clear();
-
-            foreach (string line in lines)
-            {
-                // Split the line into parts using the defined separator
-                string[] parts = line.Split(new string[] { Separator }, StringSplitOptions.None);
-
-                // Ensure the line has the expected number of parts (Date, Prompt, Response)
-                if (parts.Length >= 3)
-                {
-                    string date = parts[0];
-                    string promptText = parts[1];
-                    // The rest of the line is the entry text (handle potential extra separators in content simply)
-                    string entryText = string.Join(Separator, parts.Skip(2));
-                    
-                    // Create a new Entry object and add it to the list
-                    Entry newEntry = new Entry(date, promptText, entryText);
-                    _entries.Add(newEntry);
-                }
-            }
-            Console.WriteLine($"\nJournal successfully loaded from '{filename}'. Total entries loaded: {_entries.Count}.");
-        }
-        catch (FileNotFoundException)
-        {
-            Console.WriteLine($"\nError: The file '{filename}' was not found.");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"\nError loading file: {ex.Message}");
-        }
-    }
-}
+</Project>
