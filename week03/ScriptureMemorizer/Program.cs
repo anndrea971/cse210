@@ -1,3 +1,4 @@
+//This program is an OOP Scripture Memorizer that displays a randomly selected scripture from a library, hiding several previously unhidden words with underscores upon each user interaction until the text is fully concealed or the user quits.
 using System;
 using System.Collections.Generic;
 using System.Linq;
