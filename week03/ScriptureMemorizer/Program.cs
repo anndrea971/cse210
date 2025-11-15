@@ -73,8 +73,10 @@ public class Program
         library.Add(new Scripture(ref2, text2));
         
         
-        Reference ref3 = new Reference("Alma", 37, 35);
-        string text3 = "O, remember, my son, and learn wisdom in thy youth; yea, learn in thy youth to keep the commandments of God.";
-        library.Add(new Scripture(ref3, text3));
-
-        return library;
+                Reference ref3 = new Reference("Alma", 37, 35);
+                string text3 = "O, remember, my son, and learn wisdom in thy youth; yea, learn in thy youth to keep the commandments of God.";
+                library.Add(new Scripture(ref3, text3));
+        
+                return library;
+            }
+        }
