@@ -5,35 +5,25 @@ using System.IO;
 
 public abstract class Activity
 {
-    // Encapsulation: Private member variables
     protected string _name;
     protected string _description;
-    protected int _duration; // In seconds
-
-    // Exceeding Requirement: Static dictionary to hold activity counts (log)
+    protected int _duration;
     private static Dictionary<string, int> _activityLog = new Dictionary<string, int>();
     private const string LogFileName = "activity_log.txt";
-
-    // Constructor
     public Activity()
     {
-        // Default values, will be set by derived classes
         _name = "Generic Activity";
         _description = "A standard mindfulness activity.";
         _duration = 0;
     }
-
-    // Shared behavior: The main execution flow template for all activities
     public void RunActivity()
     {
         DisplayStartingMessage();
         
-        // --- Specific Activity Logic will be in the derived classes' DoActivity method ---
         DoActivity();
 
         DisplayEndingMessage();
         
-        // Update the log
         if (_activityLog.ContainsKey(_name))
         {
             _activityLog[_name]++;
@@ -44,14 +34,12 @@ public abstract class Activity
         }
     }
 
-    // Shared behavior: Starts the activity
     protected void DisplayStartingMessage()
     {
         Console.Clear();
         Console.WriteLine($"--- {_name} ---");
         Console.WriteLine($"{_description}");
         
-        // Show current usage from log (Exceeding Requirement)
         if (_activityLog.ContainsKey(_name))
         {
             Console.WriteLine($"(You have completed this activity {_activityLog[_name]} time(s) before.)");
@@ -66,28 +54,25 @@ public abstract class Activity
         }
         else
         {
-            _duration = 30; // Default to 30 seconds if input is invalid/negative
+            _duration = 30; 
             Console.WriteLine($"Invalid input, defaulting to {_duration} seconds.");
         }
 
         Console.WriteLine("Get ready to begin...");
-        ShowSpinner(5); // Pause for 5 seconds
+        ShowSpinner(5); 
     }
 
-    // Shared behavior: Ends the activity
     protected void DisplayEndingMessage()
     {
         Console.WriteLine("\nWell done!!");
-        ShowSpinner(3); // Pause for 3 seconds
+        ShowSpinner(3); 
 
         Console.WriteLine($"\nYou have completed the {_name} for {_duration} seconds.");
-        ShowSpinner(4); // Pause for 4 seconds
+        ShowSpinner(4); 
     }
 
-    // Abstract method: Forces derived classes to implement their specific logic
     protected abstract void DoActivity();
 
-    // Shared behavior: Displays a spinner animation while pausing
     public static void ShowSpinner(int seconds)
     {
         List<string> animation = new List<string> { "|", "/", "-", "\\" };

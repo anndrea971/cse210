@@ -88,7 +88,7 @@ public class ReflectionActivity : Activity
         {
             question = _questions[_random.Next(_questions.Count)];
         } 
-        while (used.Contains(question)); // Reroll if already used this session
+        while (used.Contains(question)); 
         
         used.Add(question);
         return question;

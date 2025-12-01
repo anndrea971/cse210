@@ -43,7 +43,6 @@ public class ListingActivity : Activity
             Console.Write("> ");
             string input = Console.ReadLine(); 
             
-            // Check for time after each item is entered
             if (DateTime.Now < endTime)
             {
                 itemCount++;
