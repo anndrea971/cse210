@@ -1,7 +1,7 @@
 /*
  * Exceeding Requirements: Gratitude Journaling Activity, which extends ListingActivity. and Implemented a log file (`activity_log.txt`) to track the number of times each activity was performed,
  * demonstrating saving and loading a log file. 
-/*/
+*/
 
 using System;
 using System.Collections.Generic;
