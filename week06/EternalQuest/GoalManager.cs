@@ -52,7 +52,7 @@ public class GoalManager
         Console.WriteLine("  1. Simple Goal (Complete once)");
         Console.WriteLine("  2. Eternal Goal (Repeatable)");
         Console.WriteLine("  3. Checklist Goal (Complete N times)");
-        Console.WriteLine("  4. Negative Goal (Habit to avoid - penalty)"); // Exceeding Req.
+        Console.WriteLine("  4. Negative Goal (Habit to avoid - penalty)");
 
         Console.Write("Which type of goal would you like to create? ");
         string choice = Console.ReadLine();
@@ -64,7 +64,6 @@ public class GoalManager
         string description = Console.ReadLine();
 
         Console.Write("What is the amount of points associated with this goal? ");
-        // TryParse is safer than Parse, but for simple user input in this project, Parse is common.
         int points = int.Parse(Console.ReadLine());
 
         if (choice == "1")
@@ -87,7 +86,6 @@ public class GoalManager
         }
         else if (choice == "4")
         {
-             // For NegativeGoal, 'points' is actually the penalty amount
             _goals.Add(new NegativeGoal(name, description, points));
         }
         else
@@ -117,10 +115,9 @@ public class GoalManager
 
             if (index >= 0 && index < _goals.Count)
             {
-                // Polymorphism: RecordEvent is called, and the correct derived method executes.
                 int pointsEarned = _goals[index].RecordEvent(); 
                 _score += pointsEarned;
-                CheckLevelUp(); // Check for level up after scoring
+                CheckLevelUp();
 
                 Console.WriteLine($"\nYou now have **{_score}** points.");
             }
@@ -140,16 +137,12 @@ public class GoalManager
         Console.Write("What is the filename for the goal file? ");
         string filename = Console.ReadLine();
 
-        // using block ensures the StreamWriter is properly closed
         using (StreamWriter outputFile = new StreamWriter(filename))
         {
-            // 1. Save Score and Level (Exceeding Requirement)
             outputFile.WriteLine($"Score:{_score},Level:{_level}");
 
-            // 2. Save Goals
             foreach (Goal goal in _goals)
             {
-                // Polymorphism: calls the specific GetStringRepresentation() for each goal type
                 outputFile.WriteLine(goal.GetStringRepresentation());
             }
         }
@@ -167,35 +160,29 @@ public class GoalManager
             return;
         }
 
-        // Clear existing goals before loading new ones
         _goals.Clear();
 
         string[] lines = System.IO.File.ReadAllLines(filename);
 
-        // 1. Load Score and Level from the first line
         if (lines.Length > 0)
         {
             string[] statusParts = lines[0].Split(',');
             
-            // Assuming format: Score:X,Level:Y
             if (statusParts.Length >= 2 && statusParts[0].StartsWith("Score:") && statusParts[1].StartsWith("Level:"))
             {
                 _score = int.Parse(statusParts[0].Split(':')[1]);
                 _level = int.Parse(statusParts[1].Split(':')[1]);
-                UpdateTitle(); // Update the title based on the loaded level
+                UpdateTitle(); 
             }
         }
 
-        // 2. Load Goals from the rest of the lines
         for (int i = 1; i < lines.Length; i++)
         {
             string line = lines[i];
-            // Split by ':' to get the Goal Type and the data string
             string[] parts = line.Split(':', 2); 
             string goalType = parts[0];
             string data = parts[1];
 
-            // Use the type string to create the correct object (Factory Pattern approach)
             Goal newGoal = CreateGoalFromData(goalType, data);
             if (newGoal != null)
             {
@@ -214,26 +201,22 @@ public class GoalManager
 
         if (type == "SimpleGoal")
         {
-            // Data fields: <name>:<description>:<points>:<isComplete>
             bool isComplete = bool.Parse(fields[3]);
             return new SimpleGoal(name, description, points, isComplete);
         }
         else if (type == "EternalGoal")
         {
-            // Data fields: <name>:<description>:<points>
             return new EternalGoal(name, description, points);
         }
         else if (type == "ChecklistGoal")
         {
-            // Data fields: <name>:<description>:<points>:<bonus>:<target>:<amountCompleted>
             int bonus = int.Parse(fields[3]);
             int target = int.Parse(fields[4]);
             int amountCompleted = int.Parse(fields[5]);
             return new ChecklistGoal(name, description, points, target, bonus, amountCompleted);
         }
-        else if (type == "NegativeGoal") // Exceeding Req.
+        else if (type == "NegativeGoal") 
         {
-            // Data fields: <name>:<description>:<penalty (stored in _points)>
             return new NegativeGoal(name, description, points);
         }
 
