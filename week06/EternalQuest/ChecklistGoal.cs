@@ -6,6 +6,7 @@ public class ChecklistGoal : Goal
     private int _target;
     private int _bonus;
 
+
     public ChecklistGoal(string name, string description, int points, int target, int bonus)
         : base(name, description, points)
     {
@@ -34,19 +35,11 @@ public class ChecklistGoal : Goal
                 pointsEarned += _bonus;
                 Console.WriteLine($"\n*** CONGRATULATIONS! *** You have completed the Checklist Goal '{GetShortName()}' and earned a bonus of {_bonus} points!");
             }
-            else
-            {
-                Console.WriteLine($"\nEvent recorded for Checklist Goal '{GetShortName()}'. You earned {_points} points.");
-            }
             
-            Console.WriteLine($"You are now at {_amountCompleted}/{_target}.");
             return pointsEarned;
         }
-        else
-        {
-            Console.WriteLine($"\nNote: The Checklist Goal '{GetShortName()}' has already been completed.");
-            return 0;
-        }
+    
+        return 0;
     }
 
     public override bool IsComplete()
@@ -62,7 +55,6 @@ public class ChecklistGoal : Goal
 
     public override string GetStringRepresentation()
     {
-
-        return $"ChecklistGoal:{GetShortName()}:{_description}:{_points}:{_bonus}:{_target}:{_amountCompleted}";
+        return $"ChecklistGoal:{_shortName}:{_description}:{_points}:{_bonus}:{_target}:{_amountCompleted}";
     }
 }
